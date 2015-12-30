@@ -6,24 +6,21 @@ let bodyParser = require('body-parser');
 let config = require('config');
 
 // Database configure
-// let mongoose = require('mongoose');
-// let Schema = mongoose.Schema;
+let mongoose = require('mongoose');
+let Schema = mongoose.Schema;
 
 if (config.has('dbConfig.host')) {
   let debug = require('debug')('mongodb');
   const HOST = config.get('dbConfig.host');
   const TABLE_NAME = config.get('dbConfig.dbName');
   debug(`${HOST}/${TABLE_NAME}`);
-
-  // mongoose.connect(`${HOST}/${TABLE_NAME}`);
+  mongoose.connect(`${HOST}/${TABLE_NAME}`);
 } else {
   let debug = require('debug')('mongodb');
   debug(`Database config not found!`);
 }
 
-// let conn = mongoose.connection;
-// let Grid = require('gridfs-stream');
-// Grid.mongo = mongoose.mongo;
+let conn = mongoose.connection;
 
 let routes = require('./routes/index');
 
@@ -38,6 +35,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.use((req, res, next) => {
+  req.conn = conn;
   next();
 });
 
