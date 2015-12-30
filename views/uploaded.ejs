@@ -7,20 +7,22 @@
 
 <body>
   <div class="mui-container">
-    <h1>Success! Here is file descriptions</h1>
+    <h1>Here is file descriptions</h1>
     <table class="mui-table mui-table--bordered">
       <thead>
         <tr>
-          <th>Filename</th>
-          <th>Upload at</th>
+          <th>New Filename</th>
+          <th>Size</th>
           <th>MD5 checksum of file</th>
+          <th>Upload at</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td><%= file.filename %></td>
-          <td><%= file.uploadDate %></td>
+          <td><%= file.length %></td>
           <td><%= file.md5 %></td>
+          <td><%= file.uploadDate %></td>
         </tr>
       </tbody>
     </table>
