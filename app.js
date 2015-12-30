@@ -7,14 +7,17 @@ let config = require('config');
 
 // Database configure
 let mongoose = require('mongoose');
-let Schema = mongoose.Schema;
 
-if (config.has('dbConfig.host')) {
+let hasConfig = config.has('dbConfig.host') &&
+  config.has('dbConfig.port') && config.has('dbConfig.dbName');
+
+if (hasConfig) {
   let debug = require('debug')('mongodb');
   const HOST = config.get('dbConfig.host');
+  const PORT = config.get('dbConfig.port');
   const TABLE_NAME = config.get('dbConfig.dbName');
-  debug(`${HOST}/${TABLE_NAME}`);
-  mongoose.connect(`${HOST}/${TABLE_NAME}`);
+  debug(`MongoDB READY! ${HOST}:${PORT}/${TABLE_NAME}`);
+  mongoose.connect(`${HOST}:${PORT}/${TABLE_NAME}`);
 } else {
   let debug = require('debug')('mongodb');
   debug(`Database config not found!`);
