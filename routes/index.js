@@ -4,6 +4,7 @@ let multer  = require('multer');
 let fs = require('fs');
 let path = require('path');
 
+let mongoose = require('mongoose');
 let Grid = require('gridfs-stream');
 Grid.mongo = mongoose.mongo;
 
@@ -18,9 +19,7 @@ router.post('/', upload.single('myUploadFile'), (req, res) => {
   let dirname = path.dirname(__dirname);
   let uploadedFilePath = req.file.path;
   let filename = req.file.filename;
-  console.log(req.file.path);
-  console.log(req.file.mimetype);
-  console.log(req.conn);
+  let conn = req.conn;
 
   let readStream =  fs.createReadStream(`${dirname}/${uploadedFilePath}`);
 
@@ -32,7 +31,23 @@ router.post('/', upload.single('myUploadFile'), (req, res) => {
 
   readStream.pipe(writeStream);
 
-  res.render('success');
+  res.render('success', {filename: filename});
+});
+
+router.get('/uploaded/:id', (req, res) => {
+  let fileId = req.params.id;
+  let conn = req.conn;
+  let gfs = Grid(conn.db);
+  console.log(fileId);
+
+  gfs.findOne({filename: fileId}, (err, file) => {
+    if (err) {
+      res.json(err);
+    }
+
+    console.log(file);
+    res.render('uploaded', {file: file});
+  });
 
 });
 
