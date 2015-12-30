@@ -4,14 +4,17 @@
   <meta charset="UTF-8">
   <% include ./partials/header %>
 </head>
-
   <body>
-    <h1>Express Upload File Demo</h1>
-    <form action="/" method="POST" enctype="multipart/form-data">
-        Select a file to upload:
-        <input type="file" name="myUploadFile" id="fileToUpload">
-        <input type="submit" value="Upload Image" name="submit">
-    </form>
-  </body>
 
+    <div class="mui-container">
+      <h1>Express Upload File Demo</h1>
+      <form action="/" method="POST" enctype="multipart/form-data">
+          <legend>Please upload a file</legend>
+          Select a file to upload:
+          <input type="file" name="myUploadFile" id="fileToUpload">
+          <input type="submit" value="Start Upload" name="submit">
+      </form>
+    </div>
+
+  </body>
 </html>
