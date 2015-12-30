@@ -30,7 +30,6 @@ router.post('/', upload.single('myUploadFile'), (req, res) => {
    });
 
   readStream.pipe(writeStream);
-
   res.render('success', {filename: filename});
 });
 
@@ -38,14 +37,14 @@ router.get('/uploaded/:id', (req, res) => {
   let fileId = req.params.id;
   let conn = req.conn;
   let gfs = Grid(conn.db);
-  console.log(fileId);
 
+  // console.log(fileId);
   gfs.findOne({filename: fileId}, (err, file) => {
     if (err) {
-      res.json(err);
+      res.status(500);
     }
 
-    console.log(file);
+    // console.log(file);
     res.render('uploaded', {file: file});
   });
 
