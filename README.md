@@ -8,4 +8,6 @@ npm start
 
 # TODO
 
-- MongoDB GridFS Integration
+- [x] MongoDB GridFS Integration
+- [ ] Add test cases
+- [ ] Deploy on Heroku
