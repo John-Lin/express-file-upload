@@ -8,19 +8,23 @@ let config = require('config');
 // Database configure
 let mongoose = require('mongoose');
 
-let hasConfig = config.has('dbConfig.host') &&
+let hasConfigFile = config.has('dbConfig.host') &&
   config.has('dbConfig.port') && config.has('dbConfig.dbName');
 
-if (hasConfig) {
+if (hasConfigFile) {
   let debug = require('debug')('mongodb');
   const HOST = config.get('dbConfig.host');
   const PORT = config.get('dbConfig.port');
-  const TABLE_NAME = config.get('dbConfig.dbName');
-  debug(`MongoDB READY! ${HOST}:${PORT}/${TABLE_NAME}`);
-  mongoose.connect(`${HOST}:${PORT}/${TABLE_NAME}`);
+  const DB_NAME = config.get('dbConfig.dbName');
+  debug(`MongoDB using configure file! ${HOST}:${PORT}/${DB_NAME}`);
+  mongoose.connect(`${HOST}:${PORT}/${DB_NAME}`);
 } else {
   let debug = require('debug')('mongodb');
-  debug(`Database config not found!`);
+  const HOST = process.env.DB_HOST;
+  const PORT = process.env.DB_PORT;
+  const DB_NAME = process.env.DB_NAME;
+  debug(`MongoDB using environment variable! ${HOST}:${PORT}/${DB_NAME}`);
+  mongoose.connect(`${HOST}:${PORT}/${DB_NAME}`);
 }
 
 let conn = mongoose.connection;
