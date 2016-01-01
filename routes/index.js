@@ -50,4 +50,14 @@ router.get('/uploaded/:id', (req, res) => {
 
 });
 
+router.get('/download/:id', (req, res) => {
+  let fileId = req.params.id;
+  let conn = req.conn;
+  let gfs = Grid(conn.db);
+
+  let readStream = gfs.createReadStream({
+    filename: fileId,
+  }).pipe(res);
+});
+
 module.exports = router;
