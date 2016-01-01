@@ -17,6 +17,11 @@ router.get('/', (req, res) => {
 
 router.post('/', upload.single('myUploadFile'), (req, res) => {
   let dirname = path.dirname(__dirname);
+  if (!req.file) {
+    // user did not choose a file
+    return res.status(403).send('Forbidden. Please choose a file!');
+  }
+
   let uploadedFilePath = req.file.path;
   let filename = req.file.filename;
   let conn = req.conn;
