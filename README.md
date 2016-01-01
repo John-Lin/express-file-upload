@@ -9,7 +9,7 @@ This is a file upload demonstration WEB Server build with ExpressJS and MongoDB 
 
 -  Start the MongoDB
 
-Note: If you want to change default MongoDB connection setting which running on `localhost:27017` please modify the `config/default.json` file
+  Note: If you want to change default MongoDB connection setting which running on `localhost:27017` please modify the `config/default.json` file
 
 
 -  Run the Web Server
@@ -17,6 +17,8 @@ Note: If you want to change default MongoDB connection setting which running on 
 ```
 npm start
 ```
+
+- Try upload file on [http://localhost:3000](http://localhost:3000)
 
 # Test
 
