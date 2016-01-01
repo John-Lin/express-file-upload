@@ -16,6 +16,7 @@
           <th>Size</th>
           <th>MD5 checksum of file</th>
           <th>Upload at</th>
+          <th><i class="fa fa-download"></i></th>
         </tr>
       </thead>
       <tbody>
@@ -24,6 +25,7 @@
           <td><%= file.length %></td>
           <td><%= file.md5 %></td>
           <td><%= file.uploadDate %></td>
+          <td><a href="http://localhost:3000/download/<%= file.filename %>"><i class="fa fa-cloud-download"></i></a></td>
         </tr>
       </tbody>
     </table>

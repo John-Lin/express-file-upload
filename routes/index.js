@@ -17,6 +17,11 @@ router.get('/', (req, res) => {
 
 router.post('/', upload.single('myUploadFile'), (req, res) => {
   let dirname = path.dirname(__dirname);
+  if (!req.file) {
+    // user did not choose a file
+    return res.status(403).send('Forbidden. Please choose a file!');
+  }
+
   let uploadedFilePath = req.file.path;
   let filename = req.file.filename;
   let conn = req.conn;
@@ -48,6 +53,16 @@ router.get('/uploaded/:id', (req, res) => {
     res.render('uploaded', {file: file});
   });
 
+});
+
+router.get('/download/:id', (req, res) => {
+  let fileId = req.params.id;
+  let conn = req.conn;
+  let gfs = Grid(conn.db);
+
+  let readStream = gfs.createReadStream({
+    filename: fileId,
+  }).pipe(res);
 });
 
 module.exports = router;
